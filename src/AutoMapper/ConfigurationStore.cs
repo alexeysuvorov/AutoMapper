@@ -276,6 +276,9 @@ namespace AutoMapper
 
                     if (conventionPropertyMap != null && inheritedMappedProperty.HasCustomValueResolver)
                         conventionPropertyMap.AssignCustomValueResolver(inheritedMappedProperty.GetSourceValueResolvers().First());
+                    //ignore members ignored in base
+                    else if (conventionPropertyMap != null && inheritedMappedProperty.IsIgnored()) 
+                        conventionPropertyMap.Ignore();
                     else if (conventionPropertyMap == null)
                     {
                         var propertyMap = new PropertyMap(inheritedMappedProperty.DestinationProperty);

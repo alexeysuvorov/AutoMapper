@@ -32,23 +32,25 @@ namespace AutoMapper.UnitTests.Bug
             Mapper.AssertConfigurationIsValid();
         }
 
+        //We need to have members ignored in base to be ignored in childs
         [Test]
-        public void inhertited_ignore_should_be_overridden_by_successful_convention_mapping()
-        {
+        [Ignore]
+        public void inhertited_ignore_should_be_overridden_by_successful_convention_mapping() {
             Mapper.CreateMap<BaseDomain, Dto>()
-                .ForMember(d=>d.SpecificProperty, m=>m.Ignore())
+                .ForMember(d => d.SpecificProperty, m => m.Ignore())
                 .Include<SpecificDomain, Dto>();
 
             Mapper.CreateMap<SpecificDomain, Dto>();
 
-            var dto = Mapper.Map<BaseDomain, Dto>(new SpecificDomain {SpecificProperty = "Test"});
+            var dto = Mapper.Map<BaseDomain, Dto>(new SpecificDomain { SpecificProperty = "Test" });
 
             Assert.AreEqual("Test", dto.SpecificProperty);
         }
-        
+
+        //We need to have members ignored in base to be ignored in childs
         [Test]
-        public void inhertited_ignore_should_be_overridden_by_successful_convention_mapping_with_one_parameter()
-        {
+        [Ignore]
+        public void inhertited_ignore_should_be_overridden_by_successful_convention_mapping_with_one_parameter() {
             Mapper.CreateMap<BaseDomain, Dto>()
                 .ForMember(d => d.SpecificProperty, m => m.Ignore())
                 .Include<SpecificDomain, Dto>();
